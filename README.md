@@ -1,0 +1,2 @@
+# Clicker
+Automate mouse clicks.
