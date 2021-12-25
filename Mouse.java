@@ -3,8 +3,6 @@ import java.awt.MouseInfo;
 
 class Mouse {
 
-	int x;
-	int y;
 	Robot r; 
 
 	public Mouse() {
@@ -16,10 +14,14 @@ class Mouse {
 		}
 	}
 
-	void getCurrentMouse() {
-		this.x = (int)MouseInfo.getPointerInfo().getLocation().getX();
-		this.y = (int)MouseInfo.getPointerInfo().getLocation().getY();
-		System.out.println("X: " + x + " - Y: " + y);
+	int[] getCurrentMouse() {
+		int values[] = new int[2];
+
+		values[0] = (int)MouseInfo.getPointerInfo().getLocation().getX();
+		values[1] = (int)MouseInfo.getPointerInfo().getLocation().getY();
+
+		System.out.println("X: " + values[0] + " - Y: " + values[1]);
+		return values; 
 	}
 		
 	void moveMouse(int x, int y) {

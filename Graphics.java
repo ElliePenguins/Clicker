@@ -10,28 +10,42 @@ public class Graphics extends JFrame implements ActionListener{
 	JButton setButton = new JButton("Set");
 	JButton clearButton = new JButton("Clear");
 	JButton runButton = new JButton("Run");
+	
+	String[] points = {"Default"};
 
-	Mouse m = new Mouse();
+	JList<String> list = new JList<>(points);
+
+	Mouse mouse = new Mouse();
+	Manager manager = new Manager(); 
 
 	public Graphics() {
 		super("Frame Title");	
-		setSize(300,100);
+		setSize(300,150);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLookAndFeel();
+		setLayout(new BorderLayout());
+
 		JPanel pane = new JPanel();
+		JPanel textPane = new JPanel();
+		list.setVisibleRowCount(8);		
+		JScrollPane scroll = new JScrollPane(this.list);
+
+		textPane.add(scroll);
+
 		pane.add(this.setButton);
 		pane.add(this.clearButton);
 		pane.add(this.runButton);
 		addActionListeners();
-		add(pane);
-		pack();
+		add(textPane ,BorderLayout.CENTER);
+		add(pane, BorderLayout.SOUTH);
+//		pack();
 		setVisible(true);
 	}
 
 	public static void setLookAndFeel() {
 		try {
 			UIManager.setLookAndFeel(
-				"com.sun.java.swing.plaf.numbus.NmbusLookAndFeel"
+				"com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel"
 			);
 		} catch (Exception e) {
 				System.out.println("Couldn't set look and feel.");
@@ -47,10 +61,14 @@ public class Graphics extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent event) {
 		Object source = event.getSource();
 		if (source == setButton) {
-			System.exit(0);
+			manager.add(this.mouse.getCurrentMouse());
+			// TODO: CONTINUE HERE;
+			manager.debug();
 		}
 		else if (source == clearButton) {
-			System.exit(0);
+			// TODO: Get element to delete in UI.
+			// TODO: CONTINUE HERE;
+			manager.delete(0);
 		}
 		else if (source == runButton) {
 			System.exit(0);
