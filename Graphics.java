@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 			Offset click times by random value.
 
 			Allow modify order of mouse points.
+
 */
 
 
@@ -93,12 +94,11 @@ public class Graphics extends JFrame implements ActionListener{
 		}
 		else if (source == clearButton) {
 			// TODO: Get element to delete in UI.
-			manager.delete(manager.getNumberOfEntries()-1);
+			this.list.getSelectedIndex();
+			manager.delete(this.list.getSelectedIndex());
 			this.modifyList();
 		}
 		else if (source == runButton) {
-			// TODO: Get element to delete in UI.
-			// TODO: CONTINUE HERE;
 			System.exit(0);
 		}
 		else if (source == exitButton) {

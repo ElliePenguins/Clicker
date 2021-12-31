@@ -46,6 +46,14 @@ class Manager {
 
 	void delete(int number) {
 		System.out.println("Entries: " + this.numberOfEntries);
+
+		// Allows Clear to work on the most recent entry
+		// when none are selected, faster deletes without
+		// needing an extra button.
+		if (number < 0) {
+			number = this.numberOfEntries-1;
+		}
+
 		if (this.numberOfEntries > 0) {
 			this.locations.remove(number);
 			this.numberOfEntries--;
