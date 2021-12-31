@@ -25,6 +25,10 @@ public class Graphics extends JFrame implements ActionListener{
 	SpinnerModel spinModel = new SpinnerNumberModel(3,0,10,1);
 	JSpinner spinner = new JSpinner(spinModel);
 
+	JLabel runSpinnerLabel = new JLabel("Run Delay: ");
+	SpinnerModel runSpinModel = new SpinnerNumberModel(5,1,60,1);
+	JSpinner runSpinner = new JSpinner(runSpinModel);
+
 	JCheckBox randomTimeCheckBox = new JCheckBox("Randomize clicks");	
 
 	String[] points = new String[0];
@@ -45,10 +49,12 @@ public class Graphics extends JFrame implements ActionListener{
 		JPanel textPane = new JPanel(new BorderLayout());
 		JPanel checkPane = new JPanel();
 		JPanel spinPane = new JPanel();
+		JPanel runSpinPane = new JPanel();
 
 		textPane.setBorder(new EmptyBorder(10,10,10,10));
 		checkPane.setBorder(new EmptyBorder(10,10,10,10));
-		spinPane.setBorder(new EmptyBorder(10,160,10,10));
+		spinPane.setBorder(new EmptyBorder(100,160,10,10));
+		runSpinPane.setBorder(new EmptyBorder(10,160,10,10));
 		pane.setBorder(new EmptyBorder(10,10,10,10));
 
 		// Keep the spinner from streching the width of the panel.
@@ -60,11 +66,14 @@ public class Graphics extends JFrame implements ActionListener{
 
 		spinPane.add(spinnerLabel);
 		spinPane.add(spinner);
+		runSpinPane.add(runSpinnerLabel);
+		runSpinPane.add(runSpinner);
 		checkPane.add(randomTimeCheckBox);
 		//checkPane.add(spinnerLabel);
 		//box.add(this.spinner);
 		//checkPane.add(box);
 		checkPane.add(spinPane);
+		checkPane.add(runSpinPane);
 	
 		list.setVisibleRowCount(8);		
 		JScrollPane scroll = new JScrollPane(this.list);
