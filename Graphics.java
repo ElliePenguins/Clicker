@@ -4,7 +4,11 @@ import java.awt.*;
 import javax.swing.border.EmptyBorder;
 
 /* TODO: Key combination to stop clicking. 
-			Offset click times by random value. */
+			Offset click times by random value.
+
+			Allow modify order of mouse points.
+*/
+
 
 public class Graphics extends JFrame implements ActionListener{
 
@@ -15,7 +19,7 @@ public class Graphics extends JFrame implements ActionListener{
 
 	JCheckBox randomTimeCheckBox = new JCheckBox("Randomize clicks");	
 
-	String[] points = {"Default"};
+	String[] points = new String[0];
 
 	JList<String> list = new JList<>(points);
 
@@ -35,6 +39,7 @@ public class Graphics extends JFrame implements ActionListener{
 
 		textPane.setBorder(new EmptyBorder(10,10,10,10));
 		checkPane.setBorder(new EmptyBorder(10,10,10,10));
+		pane.setBorder(new EmptyBorder(10,10,10,10));
 
 		list.setVisibleRowCount(8);		
 		JScrollPane scroll = new JScrollPane(this.list);
@@ -73,17 +78,23 @@ public class Graphics extends JFrame implements ActionListener{
 		exitButton.addActionListener(this);
 	}
 
+	void modifyList() {
+		this.points = manager.getList();
+		this.list.setListData(this.points);
+		this.list.updateUI();
+	}
+
 	public void actionPerformed(ActionEvent event) {
 		Object source = event.getSource();
 		if (source == setButton) {
 			manager.add(this.mouse.getCurrentMouse());
-			// TODO: CONTINUE HERE;
+			this.modifyList();
 			manager.debug();
 		}
 		else if (source == clearButton) {
 			// TODO: Get element to delete in UI.
-			// TODO: CONTINUE HERE;
-			manager.delete(0);
+			manager.delete(manager.getNumberOfEntries()-1);
+			this.modifyList();
 		}
 		else if (source == runButton) {
 			// TODO: Get element to delete in UI.
