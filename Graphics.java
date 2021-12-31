@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import javax.swing.border.EmptyBorder;
 
 /* TODO: Key combination to stop clicking. 
 			Offset click times by random value. */
@@ -11,7 +12,9 @@ public class Graphics extends JFrame implements ActionListener{
 	JButton clearButton = new JButton("Clear");
 	JButton runButton = new JButton("Run");
 	JButton exitButton = new JButton("Exit");
-	
+
+	JCheckBox randomTimeCheckBox = new JCheckBox("Randomize clicks");	
+
 	String[] points = {"Default"};
 
 	JList<String> list = new JList<>(points);
@@ -21,17 +24,26 @@ public class Graphics extends JFrame implements ActionListener{
 
 	public Graphics() {
 		super("Frame Title");	
-		setSize(300,150);
+		setSize(450 ,350);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLookAndFeel();
 		setLayout(new BorderLayout());
 
 		JPanel pane = new JPanel();
-		JPanel textPane = new JPanel();
+		JPanel textPane = new JPanel(new BorderLayout());
+		JPanel checkPane = new JPanel();
+
+		textPane.setBorder(new EmptyBorder(10,10,10,10));
+		checkPane.setBorder(new EmptyBorder(10,10,10,10));
+
 		list.setVisibleRowCount(8);		
 		JScrollPane scroll = new JScrollPane(this.list);
+		checkPane.add(this.randomTimeCheckBox);
 
-		textPane.add(scroll);
+		scroll.setPreferredSize(new Dimension(250,150));
+
+		textPane.add(scroll, BorderLayout.WEST);
+		textPane.add(checkPane, BorderLayout.EAST);
 
 		pane.add(this.setButton);
 		pane.add(this.clearButton);
