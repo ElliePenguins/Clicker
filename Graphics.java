@@ -11,6 +11,8 @@ import javax.swing.Box;
 
 			Allow modify order of mouse points.
 
+			Add a min/max delay spinner for the
+			time randomization options.
 */
 
 
@@ -18,7 +20,7 @@ public class Graphics extends JFrame implements ActionListener{
 
 	JButton setButton = new JButton("Set");
 	JButton clearButton = new JButton("Clear");
-	JButton runButton = new JButton("Run");
+	JToggleButton runButton = new JToggleButton("Run/stop");
 	JButton exitButton = new JButton("Exit");
 
 	JLabel spinnerLabel = new JLabel("Set Delay: ");
@@ -29,7 +31,9 @@ public class Graphics extends JFrame implements ActionListener{
 	SpinnerModel runSpinModel = new SpinnerNumberModel(5,1,60,1);
 	JSpinner runSpinner = new JSpinner(runSpinModel);
 
-	JCheckBox randomTimeCheckBox = new JCheckBox("Randomize clicks");	
+	JCheckBox randomClicksCheckBox = new JCheckBox("Randomize clicks");	
+	JCheckBox randomTimeCheckBox = new JCheckBox("Randomize Time");	
+	JCheckBox clickMoveCheckBox = new JCheckBox("Click/Move");	
 
 	String[] points = new String[0];
 
@@ -37,6 +41,10 @@ public class Graphics extends JFrame implements ActionListener{
 
 	Mouse mouse = new Mouse();
 	Manager manager = new Manager(); 
+
+	Mechanism mechanism;
+
+	boolean stop = false;
 
 	public Graphics() {
 		super("Frame Title");	
@@ -69,6 +77,8 @@ public class Graphics extends JFrame implements ActionListener{
 		runSpinPane.add(runSpinnerLabel);
 		runSpinPane.add(runSpinner);
 		checkPane.add(randomTimeCheckBox);
+		checkPane.add(randomClicksCheckBox);
+		checkPane.add(clickMoveCheckBox);
 		//checkPane.add(spinnerLabel);
 		//box.add(this.spinner);
 		//checkPane.add(box);
@@ -120,22 +130,37 @@ public class Graphics extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent event) {
 		Object source = event.getSource();
 		if (source == setButton) {
+			int delay = (Integer)this.spinner.getValue();
+			try {
+				Thread.sleep(delay * 1000);
+			} catch (Exception e) {
+				System.out.println("Set Delay Fail");
+			}
 			manager.add(this.mouse.getCurrentMouse());
 			this.modifyList();
 			manager.debug();
 		}
 		else if (source == clearButton) {
-			// TODO: Get element to delete in UI.
 			this.list.getSelectedIndex();
 			manager.delete(this.list.getSelectedIndex());
 			this.modifyList();
 		}
 		else if (source == runButton) {
-			System.exit(0);
+			if (this.stop == false) {
+				int delay = (Integer)this.runSpinner.getValue();
+				mechanism = new Mechanism(manager, mouse,
+											delay, false);
+				mechanism.start();
+				this.stop = true;
+				System.out.println("Stop activated.");
+			} else {
+				mechanism.end();
+				this.stop = false;
+				System.out.println("Stop deactivated.");
+			}
 		}
 		else if (source == exitButton) {
 			System.exit(0);
 		}
 	}
-	
 } 

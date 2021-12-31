@@ -34,7 +34,7 @@ class Manager {
 	String[] getList() {
 		String[] array = new String[this.numberOfEntries];
 		for(int i = 0; i < this.numberOfEntries; i++){
-			array[i] = new String(this.locations.elementAt(i)[0] + 
+			array[i] = new String(i+1 + ":  " + this.locations.elementAt(i)[0] + 
 				" X " + this.locations.elementAt(i)[1]);
 		}
 		return array;
