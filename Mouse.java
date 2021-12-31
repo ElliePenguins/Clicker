@@ -1,5 +1,6 @@
 import java.awt.Robot;
 import java.awt.MouseInfo;
+import java.awt.event.InputEvent;
 
 class Mouse {
 
@@ -26,5 +27,16 @@ class Mouse {
 		
 	void moveMouse(int x, int y) {
 		this.r.mouseMove(x,y);
+	}
+
+	void clickMouse() {
+		this.r.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+		try {
+			// Need a sensitivity setting.
+			Thread.sleep(50);
+		} catch(Exception e) {
+			System.out.println("Mouse delay fail");
+		}
+		this.r.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 	}
 }

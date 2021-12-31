@@ -13,6 +13,10 @@ import javax.swing.Box;
 
 			Add a min/max delay spinner for the
 			time randomization options.
+
+			Add a click duration spinner, or a
+			sensitivity setting for longer clicks
+			on slower computers.
 */
 
 
@@ -33,7 +37,8 @@ public class Graphics extends JFrame implements ActionListener{
 
 	JCheckBox randomClicksCheckBox = new JCheckBox("Randomize clicks");	
 	JCheckBox randomTimeCheckBox = new JCheckBox("Randomize Time");	
-	JCheckBox clickMoveCheckBox = new JCheckBox("Click/Move");	
+	JCheckBox clickMoveCheckBox = new JCheckBox("Click/Move", true);	
+	JCheckBox delayedStartCheckBox = new JCheckBox("Delayed Start", true);	
 
 	String[] points = new String[0];
 
@@ -61,7 +66,7 @@ public class Graphics extends JFrame implements ActionListener{
 
 		textPane.setBorder(new EmptyBorder(10,10,10,10));
 		checkPane.setBorder(new EmptyBorder(10,10,10,10));
-		spinPane.setBorder(new EmptyBorder(100,160,10,10));
+		spinPane.setBorder(new EmptyBorder(50,160,10,10));
 		runSpinPane.setBorder(new EmptyBorder(10,160,10,10));
 		pane.setBorder(new EmptyBorder(10,10,10,10));
 
@@ -79,6 +84,7 @@ public class Graphics extends JFrame implements ActionListener{
 		checkPane.add(randomTimeCheckBox);
 		checkPane.add(randomClicksCheckBox);
 		checkPane.add(clickMoveCheckBox);
+		checkPane.add(delayedStartCheckBox);
 		//checkPane.add(spinnerLabel);
 		//box.add(this.spinner);
 		//checkPane.add(box);
@@ -148,8 +154,18 @@ public class Graphics extends JFrame implements ActionListener{
 		else if (source == runButton) {
 			if (this.stop == false) {
 				int delay = (Integer)this.runSpinner.getValue();
+				boolean click = false;
+				boolean delayedStart = false;
+				
+				if (this.clickMoveCheckBox.isSelected()) {
+					click = true;
+				}
+				if (this.delayedStartCheckBox.isSelected()) {
+					delayedStart = true;
+				}
+
 				mechanism = new Mechanism(manager, mouse,
-											delay, false);
+											delay, false , click, delayedStart);
 				mechanism.start();
 				this.stop = true;
 				System.out.println("Stop activated.");
