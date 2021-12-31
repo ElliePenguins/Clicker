@@ -10,6 +10,7 @@ public class Graphics extends JFrame implements ActionListener{
 	JButton setButton = new JButton("Set");
 	JButton clearButton = new JButton("Clear");
 	JButton runButton = new JButton("Run");
+	JButton exitButton = new JButton("Exit");
 	
 	String[] points = {"Default"};
 
@@ -35,6 +36,7 @@ public class Graphics extends JFrame implements ActionListener{
 		pane.add(this.setButton);
 		pane.add(this.clearButton);
 		pane.add(this.runButton);
+		pane.add(this.exitButton);
 		addActionListeners();
 		add(textPane ,BorderLayout.CENTER);
 		add(pane, BorderLayout.SOUTH);
@@ -56,6 +58,7 @@ public class Graphics extends JFrame implements ActionListener{
 		setButton.addActionListener(this);
 		clearButton.addActionListener(this);
 		runButton.addActionListener(this);
+		exitButton.addActionListener(this);
 	}
 
 	public void actionPerformed(ActionEvent event) {
@@ -71,6 +74,11 @@ public class Graphics extends JFrame implements ActionListener{
 			manager.delete(0);
 		}
 		else if (source == runButton) {
+			// TODO: Get element to delete in UI.
+			// TODO: CONTINUE HERE;
+			System.exit(0);
+		}
+		else if (source == exitButton) {
 			System.exit(0);
 		}
 	}
