@@ -38,7 +38,7 @@ including windows. This also seems to build well in eclipse.
 
 Assuming you have a successful build or are provided with one. Running the Program should provide you with somthing similar to this:
 
-<image/>
+![Gui Example](https://github.com/ElliePenguins/Clicker/blob/main/images/image.jpg)
 
 The empty white text space on the left will display a list of locations the mouse will move too and optionally clicked on.
 
