@@ -17,6 +17,10 @@ import javax.swing.Box;
 			Add a click duration spinner, or a
 			sensitivity setting for longer clicks
 			on slower computers.
+
+			Time "wobbler" for more precision in
+			ranomization. Think random seconds,
+			offset from any random minutes.
 */
 
 
@@ -28,10 +32,12 @@ public class Graphics extends JFrame implements ActionListener{
 	JButton exitButton = new JButton("Exit");
 
 	JLabel spinnerLabel = new JLabel("Set Delay: ");
+	JLabel spinnerLabel2 = new JLabel(" Sec");
 	SpinnerModel spinModel = new SpinnerNumberModel(3,0,10,1);
 	JSpinner spinner = new JSpinner(spinModel);
 
 	JLabel runSpinnerLabel = new JLabel("Run Delay: ");
+	JLabel runSpinnerLabel2 = new JLabel(" Min");
 	SpinnerModel runSpinModel = new SpinnerNumberModel(5,1,60,1);
 	JSpinner runSpinner = new JSpinner(runSpinModel);
 
@@ -66,8 +72,8 @@ public class Graphics extends JFrame implements ActionListener{
 
 		textPane.setBorder(new EmptyBorder(10,10,10,10));
 		checkPane.setBorder(new EmptyBorder(10,10,10,10));
-		spinPane.setBorder(new EmptyBorder(50,160,10,10));
-		runSpinPane.setBorder(new EmptyBorder(10,160,10,10));
+		spinPane.setBorder(new EmptyBorder(50,180,10,10));
+		runSpinPane.setBorder(new EmptyBorder(10,180,10,10));
 		pane.setBorder(new EmptyBorder(10,10,10,10));
 
 		// Keep the spinner from streching the width of the panel.
@@ -79,8 +85,10 @@ public class Graphics extends JFrame implements ActionListener{
 
 		spinPane.add(spinnerLabel);
 		spinPane.add(spinner);
+		spinPane.add(spinnerLabel2);
 		runSpinPane.add(runSpinnerLabel);
 		runSpinPane.add(runSpinner);
+		runSpinPane.add(runSpinnerLabel2);
 		checkPane.add(randomTimeCheckBox);
 		checkPane.add(randomClicksCheckBox);
 		checkPane.add(clickMoveCheckBox);
@@ -94,7 +102,7 @@ public class Graphics extends JFrame implements ActionListener{
 		list.setVisibleRowCount(8);		
 		JScrollPane scroll = new JScrollPane(this.list);
 
-		scroll.setPreferredSize(new Dimension(250,150));
+		scroll.setPreferredSize(new Dimension(200,150));
 
 		textPane.add(scroll, BorderLayout.WEST);
 		textPane.add(checkPane, BorderLayout.EAST);
@@ -156,6 +164,8 @@ public class Graphics extends JFrame implements ActionListener{
 				int delay = (Integer)this.runSpinner.getValue();
 				boolean click = false;
 				boolean delayedStart = false;
+				boolean randomTime = false;
+				boolean randomClick = false;
 				
 				if (this.clickMoveCheckBox.isSelected()) {
 					click = true;
@@ -163,9 +173,17 @@ public class Graphics extends JFrame implements ActionListener{
 				if (this.delayedStartCheckBox.isSelected()) {
 					delayedStart = true;
 				}
+				if (this.randomTimeCheckBox.isSelected()) {
+					randomTime = true;
+				}
+				if (this.randomClicksCheckBox.isSelected()) {
+					randomClick = true;
+				}
 
 				mechanism = new Mechanism(manager, mouse,
-											delay, false , click, delayedStart);
+											delay, randomClick,
+											click, delayedStart,
+											randomTime);
 				mechanism.start();
 				this.stop = true;
 				System.out.println("Stop activated.");
