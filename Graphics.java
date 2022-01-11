@@ -28,6 +28,11 @@ import javax.swing.Box;
 
 			Mouse recorder for playback of entire
 			movement over a period of time?
+
+			Need to change location from a 2 element
+			array to its own class. This would allow
+			an easy means to attach a unique time
+			offset to each click.
 */
 
 
