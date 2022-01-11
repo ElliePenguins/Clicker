@@ -21,6 +21,13 @@ import javax.swing.Box;
 			Time "wobbler" for more precision in
 			ranomization. Think random seconds,
 			offset from any random minutes.
+
+			A setting that grabs the current mouse
+			position and then moves it a few pixels
+			at a set time.
+
+			Mouse recorder for playback of entire
+			movement over a period of time?
 */
 
 
@@ -47,7 +54,9 @@ public class Graphics extends JFrame implements ActionListener{
 	JCheckBox delayedStartCheckBox = new JCheckBox("Delayed Start", true);	
 
 	String[] points = new String[0];
+	String[] timeChoice = {"min", "sec"};
 
+	JComboBox<String> timeBox = new JComboBox<String>(timeChoice);
 	JList<String> list = new JList<>(points);
 
 	Mouse mouse = new Mouse();
@@ -70,10 +79,10 @@ public class Graphics extends JFrame implements ActionListener{
 		JPanel spinPane = new JPanel();
 		JPanel runSpinPane = new JPanel();
 
-		textPane.setBorder(new EmptyBorder(10,10,10,10));
+		textPane.setBorder(new EmptyBorder(20,20,10,10));
 		checkPane.setBorder(new EmptyBorder(10,10,10,10));
 		spinPane.setBorder(new EmptyBorder(50,180,10,10));
-		runSpinPane.setBorder(new EmptyBorder(10,180,10,10));
+		runSpinPane.setBorder(new EmptyBorder(10,205,10,10));
 		pane.setBorder(new EmptyBorder(10,10,10,10));
 
 		// Keep the spinner from streching the width of the panel.
@@ -88,7 +97,7 @@ public class Graphics extends JFrame implements ActionListener{
 		spinPane.add(spinnerLabel2);
 		runSpinPane.add(runSpinnerLabel);
 		runSpinPane.add(runSpinner);
-		runSpinPane.add(runSpinnerLabel2);
+		runSpinPane.add(timeBox);
 		checkPane.add(randomTimeCheckBox);
 		checkPane.add(randomClicksCheckBox);
 		checkPane.add(clickMoveCheckBox);
@@ -166,6 +175,7 @@ public class Graphics extends JFrame implements ActionListener{
 				boolean delayedStart = false;
 				boolean randomTime = false;
 				boolean randomClick = false;
+				boolean timeScale = false;
 				
 				if (this.clickMoveCheckBox.isSelected()) {
 					click = true;
@@ -179,11 +189,14 @@ public class Graphics extends JFrame implements ActionListener{
 				if (this.randomClicksCheckBox.isSelected()) {
 					randomClick = true;
 				}
+				if (this.timeBox.getSelectedIndex() == 1) {
+					timeScale = true;
+				}
 
 				mechanism = new Mechanism(manager, mouse,
-											delay, randomClick,
-											click, delayedStart,
-											randomTime);
+											delay, timeScale, 
+											randomClick, click,
+											delayedStart, randomTime);
 				mechanism.start();
 				this.stop = true;
 				System.out.println("Stop activated.");

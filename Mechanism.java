@@ -9,10 +9,12 @@ public class Mechanism extends Thread {
 	boolean delayStart;
 	boolean randomTime;
 	boolean randomClick;
+	boolean timeScale;
 
 	boolean stop = false;
 
-	Mechanism(Manager m, Mouse mouse, int d, boolean rc, boolean c, boolean ds, boolean rt) {
+	Mechanism(Manager m, Mouse mouse, int d, boolean ts, boolean rc,
+			boolean c, boolean ds, boolean rt) {
 		this.manager = m;
 		this.mouse = mouse;
 		this.delay = d;
@@ -20,6 +22,7 @@ public class Mechanism extends Thread {
 		this.click = c;
 		this.delayStart = ds;
 		this.randomTime = rt;
+		this.timeScale = ts;
 		System.out.println("DELAY: " + ds);
 	}
 
@@ -39,7 +42,14 @@ public class Mechanism extends Thread {
 				}
 				if (this.delayStart) {
 					try {
-						Thread.sleep(delay * 60000);
+						if (this.timeScale) {
+							System.out.println("sec");
+							Thread.sleep(delay * 1000);
+						}
+						else {
+							System.out.println("min");
+							Thread.sleep(delay * 60000);
+						}
 					} catch (Exception e) {
 						System.out.println("Delay Fail");
 					}
