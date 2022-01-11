@@ -32,6 +32,12 @@ and the version running on the intended target you
 should be able to run this jar on another machine,
 including windows. This also seems to build well in eclipse.
 
+## Issues:
+
+When using linux, if you are presented with a blank window, you may need to set this:
+```
+export _JAVA_AWT_WM_NONREPARENTING=1
+```
 <hr/>
 
 ## Manual:
