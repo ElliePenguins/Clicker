@@ -1,3 +1,9 @@
+/*
+ * MIT License
+ * Copyright (c) 2022 ElliePenguins 
+ *
+ */
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Mechanism extends Thread {

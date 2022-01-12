@@ -1,3 +1,9 @@
+/*
+ * MIT License
+ * Copyright (c) 2022 ElliePenguins 
+ *
+ */
+
 import java.awt.Robot;
 import java.awt.MouseInfo;
 import java.awt.event.InputEvent;

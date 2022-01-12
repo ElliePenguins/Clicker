@@ -1,3 +1,9 @@
+/*
+ * MIT License
+ * Copyright (c) 2022 ElliePenguins 
+ *
+ */
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -33,6 +39,8 @@ import javax.swing.Box;
 			array to its own class. This would allow
 			an easy means to attach a unique time
 			offset to each click.
+
+			Maybe need an option to dis-allow duplicates?
 */
 
 

@@ -1,3 +1,9 @@
+/*
+ * MIT License
+ * Copyright (c) 2022 ElliePenguins 
+ *
+ */
+
 import java.util.Vector;
 
 /* Keeps track of all of the values that are added, removed. */
